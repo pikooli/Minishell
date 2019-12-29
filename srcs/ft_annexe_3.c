@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void		ft_putstrfd(int fd, char *str)
+void	ft_putstrfd(int fd, char *str)
 {
 	while (*str)
 		write(fd, str++, 1);
