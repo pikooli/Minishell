@@ -1,4 +1,4 @@
-**<p align="center" with=300 height=200>MINISHELL<p/>**
+**<p align="center" with="300" height="200">MINISHELL<p/>**
 <hr/>
 In this project you have to make your own shell in C language.<br/>
 <image src="Minishell.gif"/>
