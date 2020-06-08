@@ -1,8 +1,13 @@
 **<p align="center" with="300" height="200">MINISHELL<p/>**
 <hr/>
 In this project you have to make your own shell in C language.<br/>
+You can only use some basic function : 
+> malloc, free, write, open, read, close, fork, wait,
+waitpid, wait3, wait4, signal, kill, exit, getcwd, chdir, stat, lstat, fstat, execve, dup, dup2, pipe, opendir, readdir, closedir, strerror, errno
+
 <image src="Minishell.gif"/>
 
+<hr/>
 the shell should:
 
 - Show a prompt when waiting for a new command.
