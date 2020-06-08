@@ -6,7 +6,7 @@
 /*   By: paszhang <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 18:58:55 by paszhang          #+#    #+#             */
-/*   Updated: 2019/12/28 18:42:28 by paszhang         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:19:19 by paszhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char	*ft_find_variable(char *str, t_env *env)
 		if (ft_cmp2(env->envp[i], str))
 		{
 			lenght = ft_lenght_to_cara(env->envp[i], '=');
-			return (&env->envp[i][lenght + 1]);
+			if (env->envp[i][lenght + 1] != '\0')
+				return (&env->envp[i][lenght + 1]);
 		}
 	i = -1;
 	while (env->local[++i])
@@ -40,7 +41,8 @@ char	*ft_find_variable(char *str, t_env *env)
 		if (ft_cmp2(env->local[i], str))
 		{
 			lenght = ft_lenght_to_cara(env->local[i], '=');
-			return (&env->local[i][lenght + 1]);
+			if (env->local[i][lenght + 1] != '\0')
+				return (&env->local[i][lenght + 1]);
 		}
 	}
 	return (ft_strdup(""));

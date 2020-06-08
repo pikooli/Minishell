@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paszhang <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mpouzol <mpouzol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 16:10:53 by paszhang          #+#    #+#             */
-/*   Updated: 2019/12/28 17:02:25 by paszhang         ###   ########.fr       */
+/*   Updated: 2020/01/12 14:27:02 by mpouzol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ t_cmd	ft_init_str(t_cmd cmd)
 	cmd.dro = 0;
 	cmd.aff = 0;
 	cmd.affpo = 0;
+	cmd.quote = 1;
+	cmd.dquote = 1;
 	if (cmd.str != NULL)
 	{
 		write(1, "\n", 1);

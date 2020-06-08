@@ -1,66 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paszhang <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mpouzol <mpouzol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 10:54:44 by paszhang          #+#    #+#             */
-/*   Updated: 2019/12/28 18:44:38 by paszhang         ###   ########.fr       */
+/*   Updated: 2020/01/11 17:04:20 by mpouzol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*ft_dup_export(char *str, int lenght, int i)
-{
-	char*dest;
-	int quote;
-	int dquote;
-
-	quote = 1;
-	dquote = 1;
-	if (!(dest = malloc(lenght + 1)))
-		return (0);
-	while (i < lenght && *str)
-	{
-		if (*str == '\'' && dquote == 1)
-		{
-			quote *= -1;
-			str++;
-		}
-		if (*str == '\"' && quote == 1)
-		{
-			str++;
-			dquote *= -1;
-		}
-		dest[i++] = *str++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-char	*ft_get_var(char *str, char **local)
-{
-	int i;
-	char*new_v;
-	char*dest;
-	int lenght;
-
-	str += ft_echo_position(str);
-	i = ft_lenght_to_cara(str, '=');
-	while (str[i] != ' ')
-		i--;
-	i++;
-	lenght = ft_lenght_to_cara(&str[i], ' ');
-	if ((dest = ft_local(&str[i], local)))
-		return (dest);
-	if (ft_check_export(&str[i], lenght))
-		return (0);
-	if (!(new_v = ft_dup_export(&str[i], lenght, 0)))
-		return (0);
-	return (new_v);
-}
 
 int		ft_cmp_envp(char **envp, char *new)
 {
@@ -70,6 +20,11 @@ int		ft_cmp_envp(char **envp, char *new)
 	while (envp[++i])
 		if (ft_cmp_to_cara(envp[i], new, '='))
 		{
+			if (new[ft_strlen(new) - 1] == '=')
+			{
+				free(new);
+				return (1);
+			}
 			free(envp[i]);
 			envp[i] = new;
 			return (1);
@@ -98,20 +53,58 @@ char	**ft_new_envp(char **envp, char *new)
 	return (new_env);
 }
 
-int		ft_export(char *str, t_env *env)
+int		ft_export2(char *str, t_env *env)
 {
 	char*new_v;
-	int i;
 
+	if (!(ft_strneedel(str, "=")))
+	{
+		str = ft_join(str, "=");
+		if (!(new_v = ft_get_var(str, env->local)))
+			return (1);
+		free(str);
+	}
+	else
+	{
+		if (!(new_v = ft_get_var(str, env->local)))
+			return (1);
+	}
+	if (!(env->envp = ft_new_envp(env->envp, new_v)))
+		return (1);
+	return (0);
+}
+
+int		ft_isalpha(char c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	return (0);
+}
+
+int		ft_export(char *str, t_env *env)
+{
+	int i;
+	char**new;
+
+	g_dollar = 0;
 	i = ft_echo_position(str);
 	i += ft_jump_space(&str[i]);
 	if (str[i] == '\0')
 		return (ft_invalidcmd(str, 4, env));
-	g_dollar = 127;
-	if (!(new_v = ft_get_var(str, env->local)))
-		return (1);
-	if (!(env->envp = ft_new_envp(env->envp, new_v)))
+	if (!(new = ft_split(&str[i], ' ')))
 		return (0);
-	g_dollar = 0;
+	i = 0;
+	while (new[i])
+	{
+		if (ft_isalpha(new[i][0]) == 0)
+			ft_invalidcmd(new[i++], 6, env);
+		if (new[i])
+			if (ft_export2(new[i++], env))
+			{
+				ft_free_2d(new);
+				return (0);
+			}
+	}
+	ft_free_2d(new);
 	return (1);
 }

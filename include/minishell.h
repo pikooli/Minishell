@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paszhang <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mpouzol <mpouzol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:18:55 by paszhang          #+#    #+#             */
-/*   Updated: 2019/12/28 18:45:47 by paszhang         ###   ########.fr       */
+/*   Updated: 2020/01/13 14:10:31 by mpouzol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ typedef struct	s_cmd
 	int aff;
 	int affpo;
 	int ret;
+	int quote;
+	int dquote;
 }				t_cmd;
 
 typedef	struct	s_redir
@@ -99,9 +101,8 @@ typedef	struct	s_redir
 
 pid_t g_pid;
 pid_t g_child;
-
+char			*g_home;
 char			g_dollar;
-
 char			*ft_rm_quote(char *str);
 void			ft_rm_split_quote(char **str);
 
@@ -109,11 +110,15 @@ void			ft_rm_split_quote(char **str);
 ** ft_env
 */
 int				ft_env(char **envp);
+int				ft_cmp_envp(char **envp, char *new);
 /*
 **ft_export
 */
 int				ft_export(char *str, t_env *env);
+char			*ft_dup_export(char *str, int lenght, int i);
 char			**ft_new_envp(char **envp, char*new);
+int				ft_lenght_to_export(char *str, char cara);
+char			*ft_get_var(char *str, char **local);
 /*
 **ft_export_2
 */
@@ -125,10 +130,12 @@ char			*ft_local(char *str, char **local);
 ** ft_unset
 */
 int				ft_unset(char *str, t_env *env);
+void			ft_unset_p(char *str, char **envp);
 /*
 ** ft_cd
 */
 int				ft_cd(char *str, t_env *env);
+void			ft_remove_quote_cd(char *dest);
 /*
 ** ft_path
 */
@@ -160,6 +167,9 @@ int				ft_cut_pipe(char *str, t_env *env);
 ** ft_cut_egal
 */
 char			*ft_cut_egal(char *str, t_env *env);
+void			ft_addexport(char *str, t_env *env);
+void			ft_local_add(char *str, t_env *env);
+char			**ft_remove(char *str);
 
 /*
 ** ft_cut_comma

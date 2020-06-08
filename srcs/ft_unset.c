@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paszhang <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mpouzol <mpouzol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 16:01:58 by paszhang          #+#    #+#             */
-/*   Updated: 2019/12/28 17:58:39 by paszhang         ###   ########.fr       */
+/*   Updated: 2020/01/12 13:27:46 by mpouzol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_cmp_unset(char *str1, char *str2)
 	i = 0;
 	while (str1[i] == str2[i] && str1[i] && str2[i])
 		i++;
-	if (str1[i] == '=')
+	if ((str1[i] == '=' || str1[i] == '\0') && str2[i] == '\0')
 		return (1);
 	return (0);
 }
@@ -56,10 +56,20 @@ void	ft_unset_p(char *str, char **envp)
 
 int		ft_unset(char *str, t_env *env)
 {
+	int		i;
+	char	**array;
+
+	i = 0;
+	array = ft_split(str, ' ');
 	str += ft_echo_position(str);
-	while (*str == ' ')
-		str++;
-	ft_unset_p(str, env->local);
-	ft_unset_p(str, env->envp);
+	while (array[i])
+	{
+		while (*array[i] == ' ')
+			array[i]++;
+		ft_unset_p(array[i], env->local);
+		ft_unset_p(array[i], env->envp);
+		i++;
+	}
+	ft_free_2d(array);
 	return (0);
 }

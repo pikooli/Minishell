@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paszhang <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mpouzol <mpouzol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 16:08:22 by paszhang          #+#    #+#             */
-/*   Updated: 2019/12/28 16:56:48 by paszhang         ###   ########.fr       */
+/*   Updated: 2020/01/12 14:36:24 by mpouzol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ int		ft_delete_127(t_cmd *cmd)
 
 	if (cmd->affpo == 0)
 		return (1);
+	cmd->quote = cmd->quote == -1 && cmd->str[cmd->posi - 1] == '\''
+	? 1 : cmd->quote;
+	cmd->dquote = cmd->dquote == -1 && cmd->str[cmd->posi - 1] == '\"'
+	? 1 : cmd->dquote;
 	ft_cursor_goback(cmd->affpo);
 	cmd->str[cmd->posi - 1] = '\0';
 	save = ft_strdup(&cmd->str[cmd->posi]);
@@ -83,6 +87,10 @@ int		ft_delete(t_cmd *cmd)
 	if (cmd->aff == 0 || cmd->posi == cmd->len)
 		return (1);
 	ft_cursor_goback(cmd->affpo);
+	cmd->quote = cmd->quote == -1 && cmd->str[cmd->posi] == '\''
+	? 1 : cmd->quote;
+	cmd->dquote = cmd->dquote == -1 && cmd->str[cmd->posi] == '\"'
+	? 1 : cmd->dquote;
 	cmd->str[cmd->posi] = '\0';
 	save = ft_strdup(&cmd->str[cmd->posi + 1]);
 	cmd->str = ft_join(cmd->str, save);

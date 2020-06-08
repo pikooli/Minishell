@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paszhang <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mpouzol <mpouzol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 18:43:03 by paszhang          #+#    #+#             */
-/*   Updated: 2019/12/28 18:43:27 by paszhang         ###   ########.fr       */
+/*   Updated: 2020/01/11 16:48:45 by mpouzol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,29 @@ int		ft_cmp_export(char *str1, char *str2)
 	int i;
 
 	i = 0;
-	while (str1[i] == str2[i] && str1[i] && str2[i])
+	while (str1[i] == str2[i] && str1[i] && str2[i] && str1[i] != '=')
 		i++;
-	return ((str1[i] == '=' && str2[i] == '\0') ? 1 : 0);
+	return ((str1[i] == '=' && str2[i] == '=') ? 1 : 0);
 }
 
 char	*ft_local(char *str, char **local)
 {
-	int i;
+	int		i;
+	char	*dest;
+	char	*tmp;
 
 	i = 0;
 	while (local[i])
 	{
-		if (ft_cmp_export(local[i], str))
-			return (ft_strdup(local[i]));
+		if (ft_cmp_to_cara(local[i], str, '='))
+		{
+			if (!(dest = ft_strdup(local[i])))
+				return (0);
+			tmp = ft_strneedel(str, "=");
+			*(tmp - 1) = '\0';
+			ft_unset_p(str, local);
+			return (dest);
+		}
 		i++;
 	}
 	return (0);

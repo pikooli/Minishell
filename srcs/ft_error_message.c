@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error_message.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paszhang <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mpouzol <mpouzol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 14:47:36 by paszhang          #+#    #+#             */
-/*   Updated: 2019/12/28 18:21:50 by paszhang         ###   ########.fr       */
+/*   Updated: 2020/01/11 16:33:05 by mpouzol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ ot valid in this context\n") : 0;
 		mode == 3 ? ft_putstr("\n\033[32mminishell\033[0m: p\
 arse error near `|'") : 0;
 		mode == 4 ? ft_print_local(env->envp) : 0;
+		mode == 6 ? ft_putstr("\033[32mminishell\033[0m: n\
+ot a valid identifier `|'\n") : 0;
 	}
 	return (1);
 }

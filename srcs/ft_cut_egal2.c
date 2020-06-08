@@ -1,49 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_remove_quote.c                                  :+:      :+:    :+:   */
+/*   ft_cut_egal2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpouzol <mpouzol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/28 11:28:49 by paszhang          #+#    #+#             */
-/*   Updated: 2020/01/12 11:16:02 by mpouzol          ###   ########.fr       */
+/*   Created: 2020/01/11 16:51:03 by mpouzol           #+#    #+#             */
+/*   Updated: 2020/01/11 16:59:56 by mpouzol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_remove_quote(char *str, char cara)
+void	ft_local_add(char *str, t_env *env)
 {
-	int i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == cara)
-		{
-			str[i] = '\0';
-			return (ft_strdup(str));
-		}
-	}
-	return (str);
+	env->local = ft_new_envp(env->local, str);
 }
 
-char	*ft_redi_quote(char *str)
+void	ft_addexport(char *str, t_env *env)
 {
-	int i;
-	char*save;
+	if (!ft_cmp_envp(env->envp, str))
+		free(str);
+}
 
-	if (str == NULL)
-		return (str);
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == '\'' || str[i] == '\"')
-		{
-			save = ft_remove_quote(&str[i + 1], str[i]);
-			free(str);
-			return (save);
-		}
-	}
-	return (str);
+char	**ft_remove(char *str)
+{
+	char **dest;
+
+	dest = ft_split(str + 1, '\0');
+	return (dest);
 }

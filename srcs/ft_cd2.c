@@ -1,49 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_remove_quote.c                                  :+:      :+:    :+:   */
+/*   ft_cd2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpouzol <mpouzol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/28 11:28:49 by paszhang          #+#    #+#             */
-/*   Updated: 2020/01/12 11:16:02 by mpouzol          ###   ########.fr       */
+/*   Created: 2020/01/12 15:11:08 by mpouzol           #+#    #+#             */
+/*   Updated: 2020/01/12 15:20:35 by mpouzol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_remove_quote(char *str, char cara)
+void	ft_remove_quote_cd(char *dest)
 {
-	int i;
+	int		i;
+	int		s;
+	t_cmd	cmd;
 
+	cmd.quote = 1;
+	cmd.dquote = 1;
+	s = 0;
 	i = -1;
-	while (str[++i])
+	while (dest[++i])
 	{
-		if (str[i] == cara)
+		if (dest[i] == '\'' && cmd.dquote == 1)
 		{
-			str[i] = '\0';
-			return (ft_strdup(str));
+			cmd.quote *= -1;
+			i++;
 		}
-	}
-	return (str);
-}
-
-char	*ft_redi_quote(char *str)
-{
-	int i;
-	char*save;
-
-	if (str == NULL)
-		return (str);
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == '\'' || str[i] == '\"')
+		else if (dest[i] == '\'' && cmd.quote == 1)
 		{
-			save = ft_remove_quote(&str[i + 1], str[i]);
-			free(str);
-			return (save);
+			cmd.dquote *= -1;
+			i++;
 		}
+		dest[s] = dest[i];
+		s++;
 	}
-	return (str);
+	dest[s] = '\0';
 }

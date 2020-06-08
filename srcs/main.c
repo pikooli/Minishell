@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paszhang <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mpouzol <mpouzol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:19:51 by paszhang          #+#    #+#             */
-/*   Updated: 2019/12/28 19:14:10 by paszhang         ###   ########.fr       */
+/*   Updated: 2020/01/12 15:08:48 by mpouzol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int		main(int ac, char **av, char **envp)
 	env.local = malloc(1);
 	env.local[0] = NULL;
 	g_dollar = 0;
+	if (!(g_home = ft_found_path(envp, "HOME")))
+		return (0);
 	if (!(env.envp = ft_copy_envp(envp)))
 		return (0);
 	signal(SIGQUIT, ft_sigdump);
