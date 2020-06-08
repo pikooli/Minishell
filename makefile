@@ -33,6 +33,9 @@ ft_concordance.c\
 ft_export_2.c\
 ft_jump_to_cara.c\
 ft_splitspecial.c\
+ft_cut_egal2.c\
+ft_export2.c\
+ft_cd2.c\
 
 SRCS	= $(addprefix ./srcs/,$(SRC))
 
@@ -60,4 +63,4 @@ fclean 		:	clean
 
 re 			:   fclean all
 
-.PHONY		:	all clean fclean re	
+.PHONY		:	all clean fclean re
