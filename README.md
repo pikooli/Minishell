@@ -8,6 +8,12 @@ waitpid, wait3, wait4, signal, kill, exit, getcwd, chdir, stat, lstat, fstat, ex
 
 <image src="Minishell.gif"/>
 
+This project teach us:
+- how to do advance parsing.
+- how to launch multiple process with fork.
+- Shell command. 
+- How command line is manage in a terminal.
+
 <hr/>
 the shell should:
 
