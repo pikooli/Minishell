@@ -1,4 +1,4 @@
-**<p align="center>MINISHELL<p/>**
+**<p align="center">MINISHELL<p/>**
 <hr/>
 In this project you have to make your own shell in C language.<br/>
 
@@ -16,8 +16,8 @@ the shell should:
 - ; in the command should separate commands like in bash.
 - ’ and " should work like in bash except for multiline commands.
 - Redirections < > “>>” should work like in bash.
-• Pipes | should work like in bash.
-• Environment variables ($ followed by characters) should work like in bash.
-• $? should work like in bash.
-• ctrl-C, ctrl-D and ctrl-\ should have the same result as in bash.
+- Pipes | should work like in bash.
+- Environment variables ($ followed by characters) should work like in bash.
+- $? should work like in bash.
+- ctrl-C, ctrl-D and ctrl-\ should have the same result as in bash.
 
