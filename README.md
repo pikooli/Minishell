@@ -1,7 +1,7 @@
 **<p align="center">MINISHELL<p/>**
 <hr/>
 In this project you have to make your own shell in C language.<br/>
-<image src="minishell.gif"/>
+<image src="Minishell.gif"/>
 the shell should:
 - Show a prompt when waiting for a new command.
 - Search and launch the right executable (based on the PATH variable or by using relative or absolute path) like in bash.
